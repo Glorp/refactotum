@@ -9,21 +9,21 @@ public class DocumentTest {
     @Example
     public void testIngenVerifikasjon() {
         Document doc = new Document();
-        doc.setVerifisering(Verifisering.ingenVerifisering());
+        doc.setVerifisering(new IngenVerifisering());
         assertThat(doc.verifikasjonTekst()).isEqualTo("");
     }
 
     @Example
     public void testGodkjent() {
         Document doc = new Document();
-        doc.setVerifisering(Verifisering.godkjent(new Verifisert("Benny Nilsen", new BrukerTimestamp("BN", LocalDateTime.of(2019, 11, 20, 14, 12)))));
+        doc.setVerifisering(new Godkjent(new Verifisert("Benny Nilsen", new BrukerTimestamp("BN", LocalDateTime.of(2019, 11, 20, 14, 12)))));
         assertThat(doc.verifikasjonTekst()).isEqualTo("Godkjent av: Benny Nilsen (BN), 2019-11-20T14:12");
     }
 
     @Example
     public void testEnUnderskriver() {
         Document doc = new Document();
-        doc.setVerifisering(Verifisering.enUnderskriver(new Verifisert("Benny Nilsen", new BrukerTimestamp("BN", LocalDateTime.of(2019, 11, 20, 14, 12)))));
+        doc.setVerifisering(new EnUnderskriver(new Verifisert("Benny Nilsen", new BrukerTimestamp("BN", LocalDateTime.of(2019, 11, 20, 14, 12)))));
         assertThat(doc.verifikasjonTekst()).isEqualTo("Signert av: Benny Nilsen (BN), 2019-11-20T14:12");
     }
 
@@ -31,7 +31,7 @@ public class DocumentTest {
     public void testToUnderskrivere() {
         Document doc = new Document();
         doc.setVerifisering(
-                Verifisering.toUnderskriver(
+                new ToUnderskrivere(
                         new Verifisert("Benny Nilsen", new BrukerTimestamp("BN", LocalDateTime.of(2019, 11, 20, 14, 12))),
                         new Verifisert("Roar Hansen", new BrukerTimestamp("RH", LocalDateTime.of(2019, 11, 20, 14, 15)))
                 )
