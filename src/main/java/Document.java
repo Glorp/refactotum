@@ -3,10 +3,11 @@ public class Document {
     private String tittel;
     private byte[] innhold;
     private BrukerTimestamp opprettetAv;
-    private boolean verifisert;
-    private Verifisert underskriver1;
-    private Verifisert underskriver2;
-    private Verifisert godkjenner;
+    private Verifisering verifisering;
+
+    public Document() {
+        verifisering = new Verifisering();
+    }
 
     public String getTittel() {
         return tittel;
@@ -17,27 +18,27 @@ public class Document {
     }
 
     public Verifisert getUnderskriver1() {
-        return underskriver1;
+        return verifisering.getUnderskriver1();
     }
 
     public void setUnderskriver1(Verifisert underskriver1) {
-        this.underskriver1 = underskriver1;
+        this.verifisering.setUnderskriver1(underskriver1);
     }
 
     public Verifisert getUnderskriver2() {
-        return underskriver2;
+        return verifisering.getUnderskriver2();
     }
 
     public void setUnderskriver2(Verifisert underskriver2) {
-        this.underskriver2 = underskriver2;
+        this.verifisering.setUnderskriver2(underskriver2);
     }
 
     public Verifisert getGodkjenner() {
-        return godkjenner;
+        return verifisering.getGodkjenner();
     }
 
     public void setGodkjenner(Verifisert godkjenner) {
-        this.godkjenner = godkjenner;
+        this.verifisering.setGodkjenner(godkjenner);
     }
 
     public byte[] getInnhold() {
@@ -57,30 +58,14 @@ public class Document {
     }
 
     public void setVerifisert(boolean verifisert) {
-        this.verifisert = verifisert;
+        this.verifisering.setVerifisert(verifisert);
     }
 
     public boolean isVerifisert() {
-        return verifisert;
+        return verifisering.isVerifisert();
     }
-    
-    public String verifikasjonTekst() {
-        if (!verifisert) {
-            return "";
-        }
-        if (getGodkjenner() != null) {
-            return String.format(
-                    "Godkjent av: %s",
-                    godkjenner.verifikasjonString());
-        }
-        if (getUnderskriver2() != null) {
-            return String.format(
-                    "Signert av: %s og %s",
-                    underskriver1.verifikasjonString(),
-                    underskriver2.verifikasjonString());        }
 
-        return String.format(
-                "Signert av: %s",
-                underskriver1.verifikasjonString());
+    public String verifikasjonTekst() {
+        return verifisering.verifikasjonTekst();
     }
 }
