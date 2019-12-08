@@ -5,6 +5,29 @@ public class Verifisering {
     private Verifisert underskriver2;
     private Verifisert godkjenner;
 
+    public Verifisering(boolean verifisert, Verifisert underskriver1, Verifisert underskriver2, Verifisert godkjenner) {
+        this.verifisert = verifisert;
+        this.underskriver1 = underskriver1;
+        this.underskriver2 = underskriver2;
+        this.godkjenner = godkjenner;
+    }
+
+    public static Verifisering ingenVerifisering() {
+        return new Verifisering(false, null, null, null);
+    }
+
+    public static Verifisering godkjent(Verifisert godkjenner) {
+        return new Verifisering(true, null, null, godkjenner);
+    }
+
+    public static Verifisering enUnderskriver(Verifisert underskriver) {
+        return new Verifisering(true, underskriver, null, null);
+    }
+
+    public static Verifisering toUnderskriver(Verifisert underskriver1, Verifisert underskriver2) {
+        return new Verifisering(true, underskriver1, underskriver2, null);
+    }
+
     public Verifisert getUnderskriver1() {
         return underskriver1;
     }
